@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>表单控件</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+    	<input type="text" v-model="mes1" name="">
+    	<p>{{mes1}}</p>
+    	<p>+++++++++++++++++++++++++++++++++++</p>
+    	<textarea v-model="mes2"></textarea>
+    	<p>{{mes2}}</p>
+    	<p>+++++++++++++++++++++++++++++++++++</p>
+    	<input type="checkbox" id="a1" v-model="check1" name="check22" value="12"><label for="a1">111</label>
+    	<input type="checkbox" id="a2" v-model="check1" name="check22" value="34"><label for="a2">222</label>
+    	<input type="checkbox" id="a3" v-model="check1" name="check22" value="56"><label for="a3">333</label>
+    	<br />
+    	<span>{{check1}}</span>
+    	<p>+++++++++++++++++++++++++++++++++++</p>
+    	<input type="radio" id="rad1" v-model="rad1" name="rad1" value="rad1"><label for="rad1">111111</label>
+    	<input type="radio" id="rad2" v-model="rad1" name="rad1" value="rad2"><label for="rad2">222222</label>
+    	<br>
+    	<span>{{rad1}}</span>
+    	<p>+++++++++++++++++++++++++++++++++++</p>
+    	<select v-model="sel1">
+    		<option>1</option>
+    		<option>2</option>
+    		<option>3</option>
+    	</select>
+    	<span>{{sel1}}</span>
+    	<br>
+    	<select v-model="sel2" multiple>
+    		<option>1</option>
+    		<option>2</option>
+    		<option>3</option>
+    	</select>
+    	<span>{{sel2}}</span>
+    	<br>
+    	<p>----------------------------------------------</p>
+    	<select v-model="sel3">
+    		<option v-for="ops in valT">{{ops.a}}</option>
+    	</select>
+    	<br><span>{{sel3}}</span>
+    </div>
+    <script type="text/javascript">
+    	var app=new Vue({
+    		el:"#app",
+    		data:{
+    			mes1:"mes1",
+    			mes2:"mes2",
+    			check1:[],
+    			rad1:"",
+    			sel1:"",
+    			sel2:[],
+    			sel3:"",
+    			valT:[{
+    				a:65
+    			},{
+    				a:78
+    			},{
+    				a:86
+    			}]
+    		}
+    	})
+    </script>
+</body>
+</html>

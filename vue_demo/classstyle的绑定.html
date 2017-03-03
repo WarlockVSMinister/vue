@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Class 与 Style 绑定</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.box_r,.box_l{
+		width: 200px;
+		height: 200px;
+		background-color: red;
+	}
+	.box_r.active{
+		background-color: yellow;
+	}
+	.box_r.cur{
+		color: #fff
+	}
+	.box_l{
+		float: right;
+	}
+</style>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- <div class="box_r" v-bind:class="{active:isActive,cur:isCur}">fsdfsdf</div> -->
+	<div class="box_r" v-bind:class="[{active:isActive},isCur]">fsdfsdf</div>
+	<div class="box_l" v-bind:style="stylesheet">
+		<span>{{news}}</span>
+		<input v-model="news" type="text" name="">
+	</div>
+
+    <script type="text/javascript">
+    	var app = new Vue({
+    		el:".box_r",
+    		/*data:{
+    			isActive:true,
+    			isCur:true
+    		}*/
+    		/*data: {
+    			hasClass:{
+	    			active:true,
+	    			cur:true
+    			}
+    		}*/
+    		/*data:{
+				isActive:false,
+				error:null
+			},
+			computed: {
+				classObject: function(){
+					return {
+						active: !this.isActive,
+						cur: this.error && this.error.type === 'fatal'
+					}
+				}
+			}*/
+			/*data:{
+				activeclass:true,
+				isActive:"active",
+				isCur:"cur"
+			}*/
+			data:{
+				isActive:true,
+				isCur:"cur"
+			}
+    	})
+
+    	var app2 = new Vue({
+    		el:".box_l",
+    		data:{
+    			stylesheet:{
+    				color:"blue",
+	    			fontSize:"24px",
+	    			border:"1px solid yellow",
+	    			borderRadius:"6px"
+    			},
+	    		news:"fdshfjhsdfhj"
+    		}
+    	})
+    </script>
+</body>
+</html>

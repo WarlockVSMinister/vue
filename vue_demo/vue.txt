@@ -1,0 +1,284 @@
+Vue 是一套渐进式框架
+
+
+指令带有前缀 v-，以表示它们是 Vue.js 提供的特殊属性
+
+v-bind这个指令的简单含义是说：将这个元素节点的 title 属性和 Vue 实例的 message 属性绑定到一起。
+
+v-if
+
+v-for
+
+v-on:click=""
+
+v-model
+
+
+在 Vue 里，一个组件实质上是一个拥有预定义选项的一个 Vue 实例
+组件
+
+Vue.component("todo-item",{
+	template:'<li>This is a todo</li>'
+})
+
+
+vue模板语法
+文本{{}}
+ v-once 指令你也能执行一次性地插值，当数据改变时，插值处的内容不会更新。但请留心这会影响到该节点上所有的数据绑定
+
+ v-bind:属性="" 简写 :属性=""
+ v-on:事件="" 简写 @事件=""
+
+
+vue class与style绑定
+对象语法
+1、在对象中传入更多属性用来动态切换多个 class v-bind:class="{active:isActive,cur:isCur}"
+data:{
+	isActive:true,
+	isCur:true	
+}
+2、直接绑定数据里的一个对象v-bind:class="hasClass"
+data:{
+	hasClass:{
+		active:true,
+		cur:true
+	}
+}
+3、绑定返回对象的计算属性 v-bind:class="classObject"
+
+data:{
+	isActive:true,
+	error:null
+},
+computed:{
+	classObject:function(){
+		return {
+			active: this.isActive && !this.isActive,
+			cur: this.error && this.error.type === 'fatal'
+		}
+	}
+}
+
+数组语法
+1、v-bind:class="[isActive,isCur]"
+
+data:{
+	isActive:"active",
+	isCur:"cur"
+}
+根据条件切换列表中的 class的方法：
+(1)直接使用三目运算
+	v-bind:class="[isActive?active:'',isCur]"
+
+	data:{
+		activeclass:true,
+		isActive:"active",
+		isCur:"cur"
+	}
+(2)使用对象语法
+	v-bind:class="[{activeclass:isActive},isCur]"
+	
+	data:{
+		activeclass:true,
+		isActive:"active",
+		isCur:"cur"
+	}
+
+
+绑定内联样式
+1、对象语法
+	(1)、v-bind:style="{color:coo,fontSize:fz+'px'}"
+	data:{
+		coo:"blue",
+    	fz:"24"
+	}
+	(2)、v-bind:style="stylesheet"
+	data:{
+    	stylesheet:{
+    		color:"blue",
+	    	fontSize:"24px"
+    	},
+	    news:"fdshfjhsdfhj"
+    }
+2、数组语法
+	v-bind:style 的数组语法可以将多个样式对象应用到一个元素上：
+	<div v-bind:style="[baseStyles, overridingStyles]">
+
+
+条件渲染
+	v-if
+	v-else
+	v-else-if
+	v-else 元素必须紧跟在 v-if 元素或者 v-else-if的后面——否则它不能被识别。
+
+	使用key控制元素的可重用
+
+列表渲染
+	v-for
+
+事件处理器
+	监听事件
+	<div id="app">
+    	<button v-on:click="count+=1">点我呀</button>
+		<p>这个按钮被点击了{{count}}次</p>
+    </div>
+
+    var app = new Vue({
+    	el:"#app",
+    	data:{
+    		count:0
+    	}
+    })
+
+    方法事件处理器
+    <div id="app1">
+    	<button v-on:click="counter">点我呀</button>
+		<p>这个按钮被点击了{{count}}次</p>
+    </div>
+
+    var app1 = new Vue({
+    	el: "#app1",
+    	data:{
+    		count:0
+    	}
+    	methods:{
+    		counter:function(){
+    			this.count++;
+    		}
+    	}
+    })
+    // 也可以用 JavaScript 直接调用方法
+	app1.methods() // -> 'Hello Vue.js!'
+
+	内联处理器方法
+	<div id="app2">
+    	<button v-on:click="helloworld('hello',$event)">点我弹出hello</button>
+    	<button v-on:click="helloworld('world',$event)">点我弹出world</button>
+    </div>
+    var app2=new Vue({
+    	el:"#app2",
+    	methods:{
+    		helloworld:function(args,event){
+    			alert(args)
+    			console.log(event.target.tabIndex);
+    		}
+    	}
+    })
+
+    事件修饰符
+    在methods 中可以轻松实现event.preventDefault()和event.stopPropagation().但最好methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节
+
+    v-on 提供了 事件修饰符。通过由点(.)表示的指令后缀来调用修饰符
+
+    v-on.stop<!-- 阻止单击事件冒泡 -->
+    v-on.prevent<!-- 提交事件不再重载页面 -->
+    v-on.capture<!-- 添加事件侦听器时使用事件捕获模式 -->
+    v-on.self<!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+    v-on.once<!-- 点击事件将只会触发一次 -->
+    <!-- 修饰符可以串联  -->
+
+    按键修饰符
+    可以通过v-on:事件.按键=""
+
+    全部的按键别名：
+	.enter
+	.tab
+	.delete (捕获 “删除” 和 “退格” 键)
+	.esc
+	.space
+	.up
+	.down
+	.left
+	.right
+	// 可以使用 v-on:keyup.f1(自定义按键)
+	Vue.config.keyCodes.f1 = 112
+
+	vue2.0新添加
+	.ctrl
+	.alt
+	.shift
+	.meta
+
+表单控件
+	文本
+	多行文本
+	单个勾选框
+		<input type="checkbox" id="checkbox" v-model="checked">
+		<label for="checkbox">{{ checked }}</label>
+	多个的时候 必须有value值
+	new Vue({
+	  el: '...',
+	  data: {
+	    checkedNames: []
+	  }
+	})
+
+组件
+	要注册一个全局组件，你可以使用 Vue.component(tagName, options)
+
+	注册
+	Vue.component('my-tem',{
+    	template:"<div>带手机都看见爱上就大家圣诞节撒娇</div>"
+    })
+    局部注册
+
+    (1)var newData={aa:"这是aaaaaa",counter:0};
+    Vue.component('my-tem',{
+    	template:"<div>带手机都看见爱上就{{aa}}诞节撒娇<button v-on:click='counter++'>{{counter}}</button></div>",
+           data:function(){
+               return newData
+           }
+    })
+    new Vue({
+    	el:"#app"
+    })
+    (2)
+    Vue.component('my-tem',{
+    	template:"<div>带手机都看见爱上就{{aa}}诞节撒娇<button v-on:click='counter++'>{{counter}}</button></div>",
+           data:function(){
+               return {aa:"这是aaaaaa",counter:0}
+           }
+    })
+    new Vue({
+    	el:"#app"
+    })
+
+    构成组件 父组件通过 props 向下传递数据给子组件，子组件通过 events 给父组件发送消息
+
+    使用 Prop 传递数据
+
+    当使用非字符串模版时，camelCased (驼峰式) 命名的 prop 需要转换为相对应的 kebab-case (短横线隔开式) 命名
+
+    可以通过1.定义一个局部 data 属性，并将 prop 的初始值作为局部数据的初始值。
+    2.定义一个 computed 属性，此属性从 prop 的值计算得出。
+
+    props可以是对象和数组
+    // 基础类型检测 （`null` 意思是任何类型都可以）
+    propA: Number,
+    // 多种类型
+    propB: [String, Number],
+    // 必传且是字符串
+    propC: {
+      type: String,
+      required: true
+    },
+    // 数字，有默认值
+    propD: {
+      type: Number,
+      default: 100
+    },
+    // 数组／对象的默认值应当由一个工厂函数返回
+    propE: {
+      type: Object,
+      default: function () {
+        return { message: 'hello' }
+      }
+    },
+    // 自定义验证函数
+    propF: {
+      validator: function (value) {
+        return value > 10
+      }
+    }
+
+    自定义事件

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<meta content="telephone=no" name="format-detection">
+<meta content="email=no" name="format-detection">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
+<title>vue_demo</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/vue.resource/1.2.1/vue-resource.min.js"></script>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+    <div id="app" v-on:click="getCustomers">fdf</div>
+    <script type="text/javascript">
+    	new Vue({
+    		el:"#app",
+    		ready:function(){
+    			this.getCustomers()
+    		},
+    		methods:{
+    			getCustomers:function(){
+    				// this.$http.get("https://api.imjad.cn/cloudmusic/?type=song&id=432506345&br=128000").then(data=>{
+    				// 	console.log(data)
+    				// })
+    				fetch("https://api.imjad.cn/cloudmusic/?type=song&id=432506345&br=128000").then(function(res){
+                        return res.json();
+                    }).then(data=>{
+    					console.log(data)
+    				})
+    			}
+    		}
+    	})
+    </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>demo</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+</head>
+<body>
+
+    <div id="app2">
+    	<p>{{message}}</p>
+    	<input v-model="message" type="text" />
+    </div>
+
+    <div id="app3">
+    	<ul>
+    		<li v-for="todo in todos">{{todo}}</li>
+    	</ul>
+    </div>
+    <ol id="app4">
+    	<todo-item v-for="list in str" v-bind:datastr="list"></todo-item>
+    </ol>
+
+    <a id="app5" v-bind:href="linkA" v-if="hide" v-on:hover="aler">这是a链接</div>
+<script type="text/javascript">
+
+	Vue.component("todo-item",{
+		props: ['datastr'],
+		template:'<li>{{datastr.txt}}</li>'
+	})
+
+	var app2 = new Vue({
+		el: "#app2",
+		data: {
+			message: "124"
+		}
+	})
+
+	var app3 = new Vue({
+		el: "#app3",
+		data: {
+			todos:[1,2,46546]
+		}
+	})
+
+	var app4 = new Vue({
+		el: "#app4",
+		data: {
+			str:[
+				{txt:"1"},
+				{txt:"12"},
+				{txt:"123"}
+			]
+		}
+	})
+
+	var app5 = new Vue({
+		el: "#app5",
+		data: {
+			linkA:"https://segmentfault.com/a/1190000006579616",
+			hide:false
+		}
+	})
+</script>
+</body>
+</html>

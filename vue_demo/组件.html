@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>组件</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+        <input v-model="myMessage" type="text" name="">
+		<my-tem :my-message="myMessage"></my-tem>
+        <my-tem my-message="这是固定的"></my-tem>
+        <my-tem></my-tem>
+	</div>
+    <p>================================</p>
+    <div id="app1">
+        <my-tem message="hellp"></my-tem>
+        <my-tem message="hellp23"></my-tem>
+        <my-tem></my-tem>
+    </div>
+    <p>================================</p>
+    <div id="app2">
+        <input v-model="myMessage" type="text" name="">
+        <my-tem :my-message="myMessage"></my-tem>
+        <my-tem my-message="啥也不知道"></my-tem>
+        <my-tem my-message="啥也不知道"></my-tem>
+    </div>
+    <div id="app3">
+        <input v-model="myMessage" type="text" name="">
+        <my-tem v-bind:my-message="myMessage"></my-tem>
+    </div>
+    <div id="app4">
+        <input v-model="myMessage" type="text" name="">
+        <span>{{myMessage}}</span>
+    </div>
+    <script type="text/javascript">
+        var newData = {counter:0};
+    	Vue.component('my-tem',{
+            props:['message'],
+    		template:"<div>带手机都看见爱上就{{message}}诞节撒娇<button v-on:click='counter++'>{{counter}}</button></div>",
+            data:function(){
+                return {counter:0}
+            }
+    	})
+    	new Vue({
+    		el:"#app",
+            data:{
+                myMessage:"这是动态的"
+            },
+            components:{
+                'my-tem':{
+                    props:['myMessage'],
+                    template:"<div>带手机{{myMessage}}都看见爱上就诞节撒娇</div>"
+                }
+            }
+    	})
+        new Vue({
+            el:"#app1"
+        })
+        new Vue({
+            el:"#app2",
+            data:{
+                myMessage:"这是动态的"
+            },
+            components:{
+                'my-tem':{
+                    props:['myMessage'],
+                    template:"<div>带手机{{counter}}都看见爱上就诞节撒娇</div>",
+                    data:function(){
+                        return {counter:this.myMessage+"艾雅黑掌"}
+                    }
+                }
+            }
+        })
+        var app3=new Vue({
+            el:"#app3",
+            data:{
+                myMessage:1
+            },
+            components:{
+                'my-tem':{
+                    props:{
+                        myMessage: {
+                            type: String,
+                            required: true
+                        }
+                    },
+                    template:"<div>带手机{{myMessage}}都看见爱上就诞节撒娇</div>"
+                }
+            }
+        })
+        new Vue({
+            el:"#app4",
+            data:{
+                myMessage:123
+            }
+        })
+    </script>
+</body>
+</html>
